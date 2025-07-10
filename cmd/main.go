@@ -49,7 +49,7 @@ func main() {
 
 		rl.BeginDrawing()
 
-		rl.ClearBackground(rl.RayWhite)
+		rl.ClearBackground(rl.Black)
 		game.Draw()
 
 		rl.EndDrawing()
