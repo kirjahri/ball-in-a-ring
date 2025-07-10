@@ -2,14 +2,23 @@ package main
 
 import rl "github.com/gen2brain/raylib-go/raylib"
 
-type Ball struct {
+type Circle struct {
 	position rl.Vector2
 	radius   float32
 	color    rl.Color
 }
 
+type Ball struct {
+	Circle
+}
+
+type Ring struct {
+	Circle
+}
+
 type Game struct {
 	balls []Ball
+	ring  Ring
 }
 
 const (
@@ -19,10 +28,19 @@ const (
 
 func (g *Game) Init() {
 	g.balls = []Ball{{
-		position: rl.NewVector2(screenWidth/2, screenHeight/2),
-		radius:   20,
-		color:    rl.Red,
+		Circle: Circle{
+			position: rl.NewVector2(screenWidth/2, screenHeight/2),
+			radius:   20,
+			color:    rl.Red,
+		},
 	}}
+	g.ring = Ring{
+		Circle: Circle{
+			position: rl.NewVector2(screenWidth/2, screenHeight/2),
+			radius:   200,
+			color:    rl.Gray,
+		},
+	}
 }
 
 func (g *Game) Update() {}
@@ -31,6 +49,8 @@ func (g *Game) Draw() {
 	for i := range g.balls {
 		rl.DrawCircleV(g.balls[i].position, g.balls[i].radius, g.balls[i].color)
 	}
+
+	rl.DrawCircleLinesV(g.ring.position, g.ring.radius, g.ring.color)
 }
 
 func main() {
